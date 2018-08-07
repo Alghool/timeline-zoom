@@ -1,10 +1,56 @@
 
+
 $.fn.timeline = function(options){
     options = $.extend({}, $.fn.timeline.defaults, options);
+    timeline = $(this);
+    timeline.addClass('zoom-timeline');
+    var width = timeline.width();
+    var canterPosition = parseInt(timeline.width()/2);
+
+    function zoomIN(node){
+        var startPosition = node.element.position().left;
+
+        node.children.forEach(function(child, index){
+            child.setPosition(startPosition);
+            timeline.append(child.element);
+            var space = parseInt(width / (node.children.length));
+            child.active(width, space);
+        });
+        node.parent.collapse(node, width);
+
+    }
+
+    function clickAction(node){
+        if(typeof options.clickEvent !== 'undefined')
+            options.clickEvent(node.element);
+
+        //do not open last node
+        if (node.order == (node.parent.children.length -1)) {
+            if (node.level > 1) {
+             //   zoomOut();
+            }
+        } else {
+            zoomIN(node);
+        }
+
+    };
 
 
 
-    console.log($(this));
+
+
+    window.rootNode = new TimeNode(0,0,null);
+
+    //html work
+    buildNodeStructure(options.nodes, 1, rootNode, clickAction);
+    rootNode.children.forEach(function(node, index){
+        node.setPosition(canterPosition);
+        timeline.append(node.element);
+        var space = parseInt(width / (node.parent.children.length-1));
+        node.active(width, space);
+    });
+
+    console.log(rootNode);
 };
 
 $.fn.timeline.defaults =
@@ -1239,6 +1285,90 @@ $.fn.timeline.defaults =
             value: "2020"
         }
     ],
-    nodeClass: ".node",
     clickEvent: function(elem){}
 };
+
+function buildNodeStructure(nodes, level, parent, event){
+    level = (typeof level !== 'undefined') ?  level : 0;
+    parent = (typeof parent !== 'undefined') ?  parent : null;
+    event = (typeof event !== 'undefined') ?  event : null;
+
+    nodes.forEach(function( node, index){
+        thisNode = new TimeNode(level, node.value, parent,index, event);
+        parent.children.push(thisNode);
+        if(typeof node.nodes !== 'undefined'){
+            buildNodeStructure(node.nodes, parseInt(level +1), thisNode, event);
+        }
+
+    });
+
+}
+
+
+function TimeNode(level, value, parent,myOrder, event){
+    this.level = level;
+    this.value = value;
+    this.parent = parent;
+    this.order = myOrder;
+    this.event = event;
+    this.children = [];
+    if(typeof TimeNode.count === 'undefined'){
+        TimeNode.count = 1;
+    }
+    else{
+        TimeNode.count ++;
+    }
+    this.id = TimeNode.count;
+
+    this.element =  $('<div ' +
+                    ' class="node"' +
+                    ' data-id="' + this.id + '"' +
+                    ' data-level= "' + this.level + '"' +
+                    ' data-value="' + this.value + '">' +
+                    '<span>' + this.value + '</span>' +
+                    '</div>');
+
+    if(typeof this.event !== 'undefined'){
+        var thisNode = this;
+        this.element.on('click',function(asd){
+
+            return thisNode.event(thisNode)
+        })
+    }
+
+
+    this.setPosition = function (position) {
+        this.element.css('left', position + 'px');
+    };
+
+    this.active = function(width, space){
+        this.element.addClass('active');
+        var position = parseInt(space * this.order);
+        this.element.animate({left: position + 'px'});
+    };
+
+    this.collapse = function(activeNode, width){
+        var right = 1;
+        this.children.forEach(function (child, index) {
+            if(right == 1){
+                if(child == activeNode){
+                    right = 0;
+                }
+                child.element.animate({left: '0px'},function(){
+                    child.element.removeClass('active');
+                })
+            }else if(right == 0){
+                child.element.animate({left: width +'px'},function(){
+                    child.element.find('span').text('back');
+                })
+                right = -1;
+            }else{
+                child.element.animate({left: width +'px'},function(){
+                    child.element.removeClass('active');
+                });
+            }
+        })
+    }
+
+
+}
