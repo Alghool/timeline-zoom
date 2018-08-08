@@ -21,12 +21,8 @@ $.fn.timeline = function(options){
     }
 
     function zoomOUT(node){
-        console.log(node);
         node.element.attr('data-role', ' ');
         node.element.find('span').text(node.displayValue);
-        console.log("asd");
-        console.log(node);
-        console.log("===============================");
 
         node.collapseIn(canterPosition);
 
@@ -73,7 +69,6 @@ $.fn.timeline = function(options){
         node.element.animate({left: position + 'px'});
     });
 
-    console.log(rootNode);
 };
 
 $.fn.timeline.defaults =
