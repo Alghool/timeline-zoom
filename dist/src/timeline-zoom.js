@@ -10,6 +10,7 @@ $.fn.timeline = function(options){
     function zoomIN(node){
         var startPosition = node.element.position().left;
 
+
         node.children.forEach(function(child, index){
             child.setPosition(startPosition);
             timeline.append(child.element);
@@ -17,19 +18,27 @@ $.fn.timeline = function(options){
             child.active(width, space);
         });
         node.parent.collapseOut(node, width);
-        // node.parent.active1(node, width);
     }
 
     function zoomOUT(node){
+        console.log(node);
         node.element.attr('data-role', ' ');
         node.element.find('span').text(node.displayValue);
-        node.parent.children.forEach(function(sibling, index){
-            if(sibling.order == parseInt(node.order - 1))
-                sibling.collapseIn(canterPosition);
-        });
-        var length = (node.level == 1)? (node.parent.children.length -1) : (node.parent.children.length );
+        console.log("asd");
+        console.log(node);
+        console.log("===============================");
+
+        node.collapseIn(canterPosition);
+
+        if(node.level == 1){
+            var length = parseInt(node.parent.children.length -1);
+            var interval = 0;
+        }else{
+            var length = node.parent.children.length;
+            var interval = 1;
+        }
         var space = parseInt(width / length);
-        node.parent.activeIn(space);
+        node.parent.activeIn(space, interval);
     }
 
     function clickAction(node){
@@ -58,7 +67,10 @@ $.fn.timeline = function(options){
         node.setPosition(canterPosition);
         timeline.append(node.element);
         var space = parseInt(width / (node.parent.children.length-1));
-        node.active(width, space);
+
+        node.element.addClass('active');
+        var position = parseInt(space * node.order);
+        node.element.animate({left: position + 'px'});
     });
 
     console.log(rootNode);
@@ -2458,8 +2470,7 @@ function TimeNode(level, value, parent,myOrder, event, displayValue){
 
     if(typeof this.event !== 'undefined'){
         var thisNode = this;
-        this.element.on('click',function(asd){
-
+        this.element.on('click',function(){
             return thisNode.event(thisNode)
         })
     }
@@ -2471,26 +2482,23 @@ function TimeNode(level, value, parent,myOrder, event, displayValue){
 
     this.active = function(width, space){
         this.element.addClass('active');
-        var position = parseInt(space * this.order);
+        var position = parseInt(space * parseInt( this.order + 1));
         this.element.animate({left: position + 'px'});
+
     };
 
     this.collapseOut = function(activeNode, width){
-        var right = 1;
         this.children.forEach(function (child, index) {
-            if(right == 1){
-                if(child == activeNode){
-                    right = 0;
-                }
+            if(child.order == activeNode.order) {
                 child.element.animate({left: '0px'},function(){
-                    child.element.removeClass('active');
+                        child.element.find('span').text('back');
+                        child.element.attr('data-role','back');
                 })
-            }else if(right == 0){
-                child.element.animate({left: width +'px'},function(){
-                    child.element.find('span').text('back');
-                    child.element.attr('data-role','back');
+            }
+            else if(child.order < activeNode.order){
+                child.element.animate({left: '0px'},function(){
+                        child.element.removeClass('active');
                 })
-                right = -1;
             }else{
                 child.element.animate({left: width +'px'},function(){
                     child.element.removeClass('active');
@@ -2507,11 +2515,11 @@ function TimeNode(level, value, parent,myOrder, event, displayValue){
         })
     }
 
-    this.activeIn = function(space){
+    this.activeIn = function(space, interval){
 
         this.children.forEach(function (child, index) {
             child.element.addClass('active');
-            var position = parseInt(space * child.order);
+            var position = parseInt(space * parseInt(child.order + interval));
             child.element.animate({left: position + 'px'});
         })
     }
