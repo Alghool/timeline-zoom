@@ -16,8 +16,20 @@ $.fn.timeline = function(options){
             var space = parseInt(width / (node.children.length));
             child.active(width, space);
         });
-        node.parent.collapse(node, width);
+        node.parent.collapseOut(node, width);
+        // node.parent.active1(node, width);
+    }
 
+    function zoomOUT(node){
+        node.element.attr('data-role', ' ');
+        node.element.find('span').text(node.displayValue);
+        node.parent.children.forEach(function(sibling, index){
+            if(sibling.order == parseInt(node.order - 1))
+                sibling.collapseIn(canterPosition);
+        });
+        var length = (node.level == 1)? (node.parent.children.length -1) : (node.parent.children.length );
+        var space = parseInt(width / length);
+        node.parent.activeIn(space);
     }
 
     function clickAction(node){
@@ -25,12 +37,11 @@ $.fn.timeline = function(options){
             options.clickEvent(node.element);
 
         //do not open last node
-        if (node.order == (node.parent.children.length -1)) {
-            if (node.level > 1) {
-             //   zoomOut();
-            }
+        if (node.element.attr('data-role') == 'back'){
+            zoomOUT(node);
         } else {
-            zoomIN(node);
+            if(node.children.length > 0)
+                zoomIN(node);
         }
 
     };
@@ -62,171 +73,531 @@ $.fn.timeline.defaults =
                 {
                     value:"1950",
                     nodes:[
-                        {value:"1950-1-31"},
-                        {value:"1950-2-28"},
-                        {value:"1950-3-31"},
-                        {value:"1950-4-30"},
-                        {value:"1950-5-31"},
-                        {value:"1950-6-30"},
-                        {value:"1950-7-31"},
-                        {value:"1950-8-31"},
-                        {value:"1950-9-30"},
-                        {value:"1950-10-31"},
-                        {value:"1950-11-30"},
-                        {value:"1950-12-31"}
+                        {
+                            value:"1950-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1950-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1950-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1950-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1950-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1950-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1950-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1950-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1950-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1950-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1950-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1950-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1951",
                     nodes:[
-                        {value:"1951-1-31"},
-                        {value:"1951-2-28"},
-                        {value:"1951-3-31"},
-                        {value:"1951-4-30"},
-                        {value:"1951-5-31"},
-                        {value:"1951-6-30"},
-                        {value:"1951-7-31"},
-                        {value:"1951-8-31"},
-                        {value:"1951-9-30"},
-                        {value:"1951-10-31"},
-                        {value:"1951-11-30"},
-                        {value:"1951-12-31"}
+                        {
+                            value:"1951-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1951-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1951-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1951-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1951-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1951-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1951-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1951-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1951-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1951-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1951-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1951-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1952",
                     nodes:[
-                        {value:"1952-1-31"},
-                        {value:"1952-2-28"},
-                        {value:"1952-3-31"},
-                        {value:"1952-4-30"},
-                        {value:"1952-5-31"},
-                        {value:"1952-6-30"},
-                        {value:"1952-7-31"},
-                        {value:"1952-8-31"},
-                        {value:"1952-9-30"},
-                        {value:"1952-10-31"},
-                        {value:"1952-11-30"},
-                        {value:"1952-12-31"}
+                        {
+                            value:"1952-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1952-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1952-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1952-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1952-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1952-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1952-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1952-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1952-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1952-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1952-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1952-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1953",
                     nodes:[
-                        {value:"1953-1-31"},
-                        {value:"1953-2-28"},
-                        {value:"1953-3-31"},
-                        {value:"1953-4-30"},
-                        {value:"1953-5-31"},
-                        {value:"1953-6-30"},
-                        {value:"1953-7-31"},
-                        {value:"1953-8-31"},
-                        {value:"1953-9-30"},
-                        {value:"1953-10-31"},
-                        {value:"1953-11-30"},
-                        {value:"1953-12-31"}
+                        {
+                            value:"1953-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1953-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1953-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1953-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1953-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1953-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1953-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1953-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1953-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1953-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1953-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1953-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1954",
                     nodes:[
-                        {value:"1954-1-31"},
-                        {value:"1954-2-28"},
-                        {value:"1954-3-31"},
-                        {value:"1954-4-30"},
-                        {value:"1954-5-31"},
-                        {value:"1954-6-30"},
-                        {value:"1954-7-31"},
-                        {value:"1954-8-31"},
-                        {value:"1954-9-30"},
-                        {value:"1954-10-31"},
-                        {value:"1954-11-30"},
-                        {value:"1954-12-31"}
+                        {
+                            value:"1954-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1954-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1954-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1954-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1954-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1954-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1954-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1954-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1954-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1954-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1954-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1954-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1955",
                     nodes:[
-                        {value:"1955-1-31"},
-                        {value:"1955-2-28"},
-                        {value:"1955-3-31"},
-                        {value:"1955-4-30"},
-                        {value:"1955-5-31"},
-                        {value:"1955-6-30"},
-                        {value:"1955-7-31"},
-                        {value:"1955-8-31"},
-                        {value:"1955-9-30"},
-                        {value:"1955-10-31"},
-                        {value:"1955-11-30"},
-                        {value:"1955-12-31"}
+                        {
+                            value:"1955-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1955-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1955-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1955-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1955-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1955-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1955-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1955-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1955-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1955-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1955-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1955-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1956",
                     nodes:[
-                        {value:"1956-1-31"},
-                        {value:"1956-2-28"},
-                        {value:"1956-3-31"},
-                        {value:"1956-4-30"},
-                        {value:"1956-5-31"},
-                        {value:"1956-6-30"},
-                        {value:"1956-7-31"},
-                        {value:"1956-8-31"},
-                        {value:"1956-9-30"},
-                        {value:"1956-10-31"},
-                        {value:"1956-11-30"},
-                        {value:"1956-12-31"}
+                        {
+                            value:"1956-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1956-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1956-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1956-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1956-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1956-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1956-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1956-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1956-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1956-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1956-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1956-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1957",
                     nodes:[
-                        {value:"1957-1-31"},
-                        {value:"1957-2-28"},
-                        {value:"1957-3-31"},
-                        {value:"1957-4-30"},
-                        {value:"1957-5-31"},
-                        {value:"1957-6-30"},
-                        {value:"1957-7-31"},
-                        {value:"1957-8-31"},
-                        {value:"1957-9-30"},
-                        {value:"1957-10-31"},
-                        {value:"1957-11-30"},
-                        {value:"1957-12-31"}
+                        {
+                            value:"1957-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1957-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1957-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1957-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1957-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1957-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1957-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1957-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1957-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1957-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1957-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1957-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1958",
                     nodes:[
-                        {value:"1958-1-31"},
-                        {value:"1958-2-28"},
-                        {value:"1958-3-31"},
-                        {value:"1958-4-30"},
-                        {value:"1958-5-31"},
-                        {value:"1958-6-30"},
-                        {value:"1958-7-31"},
-                        {value:"1958-8-31"},
-                        {value:"1958-9-30"},
-                        {value:"1958-10-31"},
-                        {value:"1958-11-30"},
-                        {value:"1958-12-31"}
+                        {
+                            value:"1958-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1958-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1958-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1958-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1958-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1958-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1958-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1958-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1958-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1958-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1958-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1958-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1959",
                     nodes:[
-                        {value:"1959-1-31"},
-                        {value:"1959-2-28"},
-                        {value:"1959-3-31"},
-                        {value:"1959-4-30"},
-                        {value:"1959-5-31"},
-                        {value:"1959-6-30"},
-                        {value:"1959-7-31"},
-                        {value:"1959-8-31"},
-                        {value:"1959-9-30"},
-                        {value:"1959-10-31"},
-                        {value:"1959-11-30"},
-                        {value:"1959-12-31"}
+                        {
+                            value:"1959-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1959-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1959-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1959-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1959-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1959-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1959-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1959-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1959-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1959-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1959-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1959-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 }
             ]
@@ -237,171 +608,531 @@ $.fn.timeline.defaults =
                 {
                     value:"1960",
                     nodes:[
-                        {value:"1960-1-31"},
-                        {value:"1960-2-28"},
-                        {value:"1960-3-31"},
-                        {value:"1960-4-30"},
-                        {value:"1960-5-31"},
-                        {value:"1960-6-30"},
-                        {value:"1960-7-31"},
-                        {value:"1960-8-31"},
-                        {value:"1960-9-30"},
-                        {value:"1960-10-31"},
-                        {value:"1960-11-30"},
-                        {value:"1960-12-31"}
+                        {
+                            value:"1960-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1960-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1960-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1960-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1960-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1960-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1960-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1960-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1960-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1960-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1960-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1960-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1961",
                     nodes:[
-                        {value:"1961-1-31"},
-                        {value:"1961-2-28"},
-                        {value:"1961-3-31"},
-                        {value:"1961-4-30"},
-                        {value:"1961-5-31"},
-                        {value:"1961-6-30"},
-                        {value:"1961-7-31"},
-                        {value:"1961-8-31"},
-                        {value:"1961-9-30"},
-                        {value:"1961-10-31"},
-                        {value:"1961-11-30"},
-                        {value:"1961-12-31"}
+                        {
+                            value:"1961-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1961-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1961-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1961-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1961-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1961-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1961-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1961-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1961-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1961-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1961-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1961-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1962",
                     nodes:[
-                        {value:"1962-1-31"},
-                        {value:"1962-2-28"},
-                        {value:"1962-3-31"},
-                        {value:"1962-4-30"},
-                        {value:"1962-5-31"},
-                        {value:"1962-6-30"},
-                        {value:"1962-7-31"},
-                        {value:"1962-8-31"},
-                        {value:"1962-9-30"},
-                        {value:"1962-10-31"},
-                        {value:"1962-11-30"},
-                        {value:"1962-12-31"}
+                        {
+                            value:"1962-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1962-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1962-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1962-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1962-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1962-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1962-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1962-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1962-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1962-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1962-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1962-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1963",
                     nodes:[
-                        {value:"1963-1-31"},
-                        {value:"1963-2-28"},
-                        {value:"1963-3-31"},
-                        {value:"1963-4-30"},
-                        {value:"1963-5-31"},
-                        {value:"1963-6-30"},
-                        {value:"1963-7-31"},
-                        {value:"1963-8-31"},
-                        {value:"1963-9-30"},
-                        {value:"1963-10-31"},
-                        {value:"1963-11-30"},
-                        {value:"1963-12-31"}
+                        {
+                            value:"1963-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1963-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1963-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1963-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1963-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1963-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1963-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1963-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1963-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1963-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1963-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1963-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1964",
                     nodes:[
-                        {value:"1964-1-31"},
-                        {value:"1964-2-28"},
-                        {value:"1964-3-31"},
-                        {value:"1964-4-30"},
-                        {value:"1964-5-31"},
-                        {value:"1964-6-30"},
-                        {value:"1964-7-31"},
-                        {value:"1964-8-31"},
-                        {value:"1964-9-30"},
-                        {value:"1964-10-31"},
-                        {value:"1964-11-30"},
-                        {value:"1964-12-31"}
+                        {
+                            value:"1964-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1964-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1964-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1964-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1964-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1964-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1964-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1964-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1964-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1964-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1964-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1964-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1965",
                     nodes:[
-                        {value:"1965-1-31"},
-                        {value:"1965-2-28"},
-                        {value:"1965-3-31"},
-                        {value:"1965-4-30"},
-                        {value:"1965-5-31"},
-                        {value:"1965-6-30"},
-                        {value:"1965-7-31"},
-                        {value:"1965-8-31"},
-                        {value:"1965-9-30"},
-                        {value:"1965-10-31"},
-                        {value:"1965-11-30"},
-                        {value:"1965-12-31"}
+                        {
+                            value:"1965-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1965-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1965-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1965-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1965-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1965-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1965-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1965-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1965-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1965-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1965-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1965-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1966",
                     nodes:[
-                        {value:"1966-1-31"},
-                        {value:"1966-2-28"},
-                        {value:"1966-3-31"},
-                        {value:"1966-4-30"},
-                        {value:"1966-5-31"},
-                        {value:"1966-6-30"},
-                        {value:"1966-7-31"},
-                        {value:"1966-8-31"},
-                        {value:"1966-9-30"},
-                        {value:"1966-10-31"},
-                        {value:"1966-11-30"},
-                        {value:"1966-12-31"}
+                        {
+                            value:"1966-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1966-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1966-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1966-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1966-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1966-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1966-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1966-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1966-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1966-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1966-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1966-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1967",
                     nodes:[
-                        {value:"1967-1-31"},
-                        {value:"1967-2-28"},
-                        {value:"1967-3-31"},
-                        {value:"1967-4-30"},
-                        {value:"1967-5-31"},
-                        {value:"1967-6-30"},
-                        {value:"1967-7-31"},
-                        {value:"1967-8-31"},
-                        {value:"1967-9-30"},
-                        {value:"1967-10-31"},
-                        {value:"1967-11-30"},
-                        {value:"1967-12-31"}
+                        {
+                            value:"1967-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1967-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1967-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1967-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1967-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1967-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1967-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1967-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1967-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1967-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1967-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1967-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1968",
                     nodes:[
-                        {value:"1968-1-31"},
-                        {value:"1968-2-28"},
-                        {value:"1968-3-31"},
-                        {value:"1968-4-30"},
-                        {value:"1968-5-31"},
-                        {value:"1968-6-30"},
-                        {value:"1968-7-31"},
-                        {value:"1968-8-31"},
-                        {value:"1968-9-30"},
-                        {value:"1968-10-31"},
-                        {value:"1968-11-30"},
-                        {value:"1968-12-31"}
+                        {
+                            value:"1968-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1968-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1968-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1968-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1968-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1968-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1968-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1968-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1968-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1968-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1968-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1968-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1969",
                     nodes:[
-                        {value:"1969-1-31"},
-                        {value:"1969-2-28"},
-                        {value:"1969-3-31"},
-                        {value:"1969-4-30"},
-                        {value:"1969-5-31"},
-                        {value:"1969-6-30"},
-                        {value:"1969-7-31"},
-                        {value:"1969-8-31"},
-                        {value:"1969-9-30"},
-                        {value:"1969-10-31"},
-                        {value:"1969-11-30"},
-                        {value:"1969-12-31"}
+                        {
+                            value:"1969-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1969-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1969-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1969-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1969-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1969-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1969-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1969-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1969-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1969-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1969-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1969-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
             ]
@@ -412,171 +1143,531 @@ $.fn.timeline.defaults =
                 {
                     value:"1970",
                     nodes:[
-                        {value:"1970-1-31"},
-                        {value:"1970-2-28"},
-                        {value:"1970-3-31"},
-                        {value:"1970-4-30"},
-                        {value:"1970-5-31"},
-                        {value:"1970-6-30"},
-                        {value:"1970-7-31"},
-                        {value:"1970-8-31"},
-                        {value:"1970-9-30"},
-                        {value:"1970-10-31"},
-                        {value:"1970-11-30"},
-                        {value:"1970-12-31"}
+                        {
+                            value:"1970-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1970-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1970-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1970-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1970-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1970-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1970-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1970-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1970-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1970-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1970-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1970-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1971",
                     nodes:[
-                        {value:"1971-1-31"},
-                        {value:"1971-2-28"},
-                        {value:"1971-3-31"},
-                        {value:"1971-4-30"},
-                        {value:"1971-5-31"},
-                        {value:"1971-6-30"},
-                        {value:"1971-7-31"},
-                        {value:"1971-8-31"},
-                        {value:"1971-9-30"},
-                        {value:"1971-10-31"},
-                        {value:"1971-11-30"},
-                        {value:"1971-12-31"}
+                        {
+                            value:"1971-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1971-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1971-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1971-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1971-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1971-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1971-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1971-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1971-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1971-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1971-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1971-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1972",
                     nodes:[
-                        {value:"1972-1-31"},
-                        {value:"1972-2-28"},
-                        {value:"1972-3-31"},
-                        {value:"1972-4-30"},
-                        {value:"1972-5-31"},
-                        {value:"1972-6-30"},
-                        {value:"1972-7-31"},
-                        {value:"1972-8-31"},
-                        {value:"1972-9-30"},
-                        {value:"1972-10-31"},
-                        {value:"1972-11-30"},
-                        {value:"1972-12-31"}
+                        {
+                            value:"1972-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1972-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1972-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1972-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1972-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1972-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1972-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1972-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1972-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1972-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1972-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1972-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1973",
                     nodes:[
-                        {value:"1973-1-31"},
-                        {value:"1973-2-28"},
-                        {value:"1973-3-31"},
-                        {value:"1973-4-30"},
-                        {value:"1973-5-31"},
-                        {value:"1973-6-30"},
-                        {value:"1973-7-31"},
-                        {value:"1973-8-31"},
-                        {value:"1973-9-30"},
-                        {value:"1973-10-31"},
-                        {value:"1973-11-30"},
-                        {value:"1973-12-31"}
+                        {
+                            value:"1973-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1973-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1973-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1973-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1973-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1973-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1973-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1973-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1973-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1973-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1973-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1973-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1974",
                     nodes:[
-                        {value:"1974-1-31"},
-                        {value:"1974-2-28"},
-                        {value:"1974-3-31"},
-                        {value:"1974-4-30"},
-                        {value:"1974-5-31"},
-                        {value:"1974-6-30"},
-                        {value:"1974-7-31"},
-                        {value:"1974-8-31"},
-                        {value:"1974-9-30"},
-                        {value:"1974-10-31"},
-                        {value:"1974-11-30"},
-                        {value:"1974-12-31"}
+                        {
+                            value:"1974-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1974-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1974-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1974-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1974-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1974-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1974-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1974-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1974-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1974-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1974-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1974-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1975",
                     nodes:[
-                        {value:"1975-1-31"},
-                        {value:"1975-2-28"},
-                        {value:"1975-3-31"},
-                        {value:"1975-4-30"},
-                        {value:"1975-5-31"},
-                        {value:"1975-6-30"},
-                        {value:"1975-7-31"},
-                        {value:"1975-8-31"},
-                        {value:"1975-9-30"},
-                        {value:"1975-10-31"},
-                        {value:"1975-11-30"},
-                        {value:"1975-12-31"}
+                        {
+                            value:"1975-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1975-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1975-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1975-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1975-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1975-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1975-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1975-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1975-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1975-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1975-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1975-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1976",
                     nodes:[
-                        {value:"1976-1-31"},
-                        {value:"1976-2-28"},
-                        {value:"1976-3-31"},
-                        {value:"1976-4-30"},
-                        {value:"1976-5-31"},
-                        {value:"1976-6-30"},
-                        {value:"1976-7-31"},
-                        {value:"1976-8-31"},
-                        {value:"1976-9-30"},
-                        {value:"1976-10-31"},
-                        {value:"1976-11-30"},
-                        {value:"1976-12-31"}
+                        {
+                            value:"1976-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1976-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1976-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1976-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1976-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1976-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1976-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1976-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1976-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1976-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1976-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1976-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1977",
                     nodes:[
-                        {value:"1977-1-31"},
-                        {value:"1977-2-28"},
-                        {value:"1977-3-31"},
-                        {value:"1977-4-30"},
-                        {value:"1977-5-31"},
-                        {value:"1977-6-30"},
-                        {value:"1977-7-31"},
-                        {value:"1977-8-31"},
-                        {value:"1977-9-30"},
-                        {value:"1977-10-31"},
-                        {value:"1977-11-30"},
-                        {value:"1977-12-31"}
+                        {
+                            value:"1977-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1977-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1977-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1977-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1977-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1977-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1977-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1977-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1977-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1977-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1977-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1977-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1978",
                     nodes:[
-                        {value:"1978-1-31"},
-                        {value:"1978-2-28"},
-                        {value:"1978-3-31"},
-                        {value:"1978-4-30"},
-                        {value:"1978-5-31"},
-                        {value:"1978-6-30"},
-                        {value:"1978-7-31"},
-                        {value:"1978-8-31"},
-                        {value:"1978-9-30"},
-                        {value:"1978-10-31"},
-                        {value:"1978-11-30"},
-                        {value:"1978-12-31"}
+                        {
+                            value:"1978-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1978-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1978-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1978-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1978-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1978-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1978-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1978-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1978-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1978-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1978-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1978-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
                     value:"1979",
                     nodes:[
-                        {value:"1979-1-31"},
-                        {value:"1979-2-28"},
-                        {value:"1979-3-31"},
-                        {value:"1979-4-30"},
-                        {value:"1979-5-31"},
-                        {value:"1979-6-30"},
-                        {value:"1979-7-31"},
-                        {value:"1979-8-31"},
-                        {value:"1979-9-30"},
-                        {value:"1979-10-31"},
-                        {value:"1979-11-30"},
-                        {value:"1979-12-31"}
+                        {
+                            value:"1979-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1979-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1979-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1979-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1979-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1979-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1979-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1979-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1979-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1979-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1979-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1979-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 }
             ]
@@ -587,18 +1678,54 @@ $.fn.timeline.defaults =
                 {
                     value:"1980",
                     nodes:[
-                        {value:"1980-1-31"},
-                        {value:"1980-2-28"},
-                        {value:"1980-3-31"},
-                        {value:"1980-4-30"},
-                        {value:"1980-5-31"},
-                        {value:"1980-6-30"},
-                        {value:"1980-7-31"},
-                        {value:"1980-8-31"},
-                        {value:"1980-9-30"},
-                        {value:"1980-10-31"},
-                        {value:"1980-11-30"},
-                        {value:"1980-12-31"}
+                        {
+                            value:"1980-1-31",
+                            displayValue: '1'
+                        },
+                        {
+                            value:"1980-2-28",
+                            displayValue: '2'
+                        },
+                        {
+                            value:"1980-3-31",
+                            displayValue: '3'
+                        },
+                        {
+                            value:"1980-4-30",
+                            displayValue: '4'
+                        },
+                        {
+                            value:"1980-5-31",
+                            displayValue: '5'
+                        },
+                        {
+                            value:"1980-6-30",
+                            displayValue: '6'
+                        },
+                        {
+                            value:"1980-7-31",
+                            displayValue: '7'
+                        },
+                        {
+                            value:"1980-8-31",
+                            displayValue: '8'
+                        },
+                        {
+                            value:"1980-9-30",
+                            displayValue: '9'
+                        },
+                        {
+                            value:"1980-10-31",
+                            displayValue: '10'
+                        },
+                        {
+                            value:"1980-11-30",
+                            displayValue: '11'
+                        },
+                        {
+                            value:"1980-12-31",
+                            displayValue: '12'
+                        }
                     ]
                 },
                 {
@@ -1294,7 +2421,7 @@ function buildNodeStructure(nodes, level, parent, event){
     event = (typeof event !== 'undefined') ?  event : null;
 
     nodes.forEach(function( node, index){
-        thisNode = new TimeNode(level, node.value, parent,index, event);
+        thisNode = new TimeNode(level, node.value, parent,index, event, node.displayValue);
         parent.children.push(thisNode);
         if(typeof node.nodes !== 'undefined'){
             buildNodeStructure(node.nodes, parseInt(level +1), thisNode, event);
@@ -1305,12 +2432,13 @@ function buildNodeStructure(nodes, level, parent, event){
 }
 
 
-function TimeNode(level, value, parent,myOrder, event){
+function TimeNode(level, value, parent,myOrder, event, displayValue){
     this.level = level;
-    this.value = value;
+    this.value = (value)? value: displayValue;
     this.parent = parent;
     this.order = myOrder;
     this.event = event;
+    this.displayValue = (typeof displayValue !== 'undefined')? displayValue: value;
     this.children = [];
     if(typeof TimeNode.count === 'undefined'){
         TimeNode.count = 1;
@@ -1325,7 +2453,7 @@ function TimeNode(level, value, parent,myOrder, event){
                     ' data-id="' + this.id + '"' +
                     ' data-level= "' + this.level + '"' +
                     ' data-value="' + this.value + '">' +
-                    '<span>' + this.value + '</span>' +
+                    '<span>' + this.displayValue + '</span>' +
                     '</div>');
 
     if(typeof this.event !== 'undefined'){
@@ -1347,7 +2475,7 @@ function TimeNode(level, value, parent,myOrder, event){
         this.element.animate({left: position + 'px'});
     };
 
-    this.collapse = function(activeNode, width){
+    this.collapseOut = function(activeNode, width){
         var right = 1;
         this.children.forEach(function (child, index) {
             if(right == 1){
@@ -1360,6 +2488,7 @@ function TimeNode(level, value, parent,myOrder, event){
             }else if(right == 0){
                 child.element.animate({left: width +'px'},function(){
                     child.element.find('span').text('back');
+                    child.element.attr('data-role','back');
                 })
                 right = -1;
             }else{
@@ -1370,5 +2499,21 @@ function TimeNode(level, value, parent,myOrder, event){
         })
     }
 
+    this.collapseIn = function(center){
+        this.children.forEach(function(child, index){
+            child.element.animate({left: center +'px'},function(){
+                child.element.removeClass('active');
+            })
+        })
+    }
+
+    this.activeIn = function(space){
+
+        this.children.forEach(function (child, index) {
+            child.element.addClass('active');
+            var position = parseInt(space * child.order);
+            child.element.animate({left: position + 'px'});
+        })
+    }
 
 }
