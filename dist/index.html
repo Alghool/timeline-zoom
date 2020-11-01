@@ -11,6 +11,7 @@
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="src/timeline-zoom.js"></script>
+    <script src="src/timeline-zoom.js"></script>
     <link rel="stylesheet" href="src/style.css">
 
 
@@ -24,5 +25,11 @@
 </html>
 
 <script>
-    $('#my-timeline').timeline();
+fetch('./src/nodes.json')
+  .then(response => response.json())
+  .then(nodes => {
+    $('#my-timeline').timeline({nodes:nodes});
+  });
+
+    
 </script>
